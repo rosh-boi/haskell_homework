@@ -134,3 +134,83 @@ namesNAddress = zip names addresses
 -----------------------------------------------------------------------------------------
 
 -----------------------------Functions------------------------------------------------------------
+
+main = do 
+    putStrLn "Whaz is your name?"
+    name <- getLine
+    putStrLn("Hello " ++ name)
+
+addMe :: Int -> Int -> Int
+addMe x y= x + y 
+
+-- You can perform different actions based on values
+whatAge :: Int -> String
+whatAge 16 = "You can drive"
+whatAge 18 = "You can vote"
+whatAge 21 = "You're an adult"
+ 
+-- The default
+whatAge _ = "Nothing Important"
+
+-------recursion-----
+factorial :: Int -> Int
+factorial 0 = 1
+factorial n = n * factorial(n-1)
+
+isOdd :: Int -> Bool 
+isOdd n 
+    | n `mod` 2 == 0 = False
+    | otherwise = True
+    
+isEven :: Int -> Bool 
+isEven n = n `mod` 2 == 0
+
+-- Use guards to define the school to output
+whatGrade :: Int -> String
+whatGrade age
+    | (age >= 5) && (age <= 6) = "Kindergarten"
+	| (age > 6) && (age <= 10) = "Elementary School"
+	| (age > 10) && (age <= 14) = "Middle School"
+	| (age > 14) && (age <= 18) = "High School"
+    | otherwise = "Go to college"
+    
+-- The where clause keeps us from having to repeat a calculation
+batAvgRating :: Double -> Double -> String
+batAvgRating hits atBats
+	| avg <= 0.200 = "Terrible Batting Average"
+	| avg <= 0.250 = "Average Player"
+	| avg <= 0.280 = "Your doing pretty good"
+	| otherwise = "You're a Superstar"
+	where avg = hits / atBats 
+
+-- You can access list items by separating letters with : or get everything but
+-- the first item with xs
+getListItems :: [Int] -> String
+getListItems [] = "Your list is empty"
+getListItems (x:[]) = "Your list contains " ++ show x
+getListItems (x:y:[]) = "Your list contains " ++ show x ++ " and " ++ show y
+getListItems (x:xs) = "The first item is " ++ show x ++ " and the rest are " ++ show xs
+
+-- We can also get values with an As pattern
+getFirstItem :: String -> String
+getFirstItem [] = "Empty String"
+getFirstItem all@(x:xs) = "The first letter in " ++ all ++ " is " ++ [x]
+
+-- ---------- HIGHER ORDER FUNCTIONS ----------
+-- Passing of functions as if they are variables
+ 
+times4 :: Int -> Int
+times4 x = x * 4
+
+listTimes4 = map times4 [1,2,3,4]
+
+-- Let's make map / how map works
+multBy4 :: [Int] -> [Int]
+multBy4 [] = []
+multBy4 (x:xs) = times4 x : multBy4 xs
+
+-- Check if strings are equal with recursion
+areStringsEq :: [Char] -> [Char] -> Bool
+areStringsEq [] [] = True
+areStringsEq (x:xs) (y:ys) = x == y && areStringsEq xs ys
+areStringsEq _ _ = False
