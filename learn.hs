@@ -214,3 +214,24 @@ areStringsEq :: [Char] -> [Char] -> Bool
 areStringsEq [] [] = True
 areStringsEq (x:xs) (y:ys) = x == y && areStringsEq xs ys
 areStringsEq _ _ = False
+
+-- PASSING A FUNCTION INTO A FUNCTION
+-- (Int -> Int) says we expect a function that receives an Int and returns an Int
+doMult :: (Int -> Int) -> Int
+doMult func = func 3
+num3Times4 = doMult times4 -- times4 is a function that is being passed in
+
+-- RETURNING A FUNCTION FROM A FUNCTION
+getAddFunc :: Int -> (Int -> Int)
+getAddFunc x y = x + y
+adds3 = getAddFunc 3
+fourPlus3 = adds3 4
+
+-- We could use this function with map as well
+threePlusList = map adds3 [1,2,3,4,5]
+
+-- ---------- LAMBDA ----------
+-- How we create functions without a name
+-- \ represents lambda then you have the arguments -> and result
+ 
+dbl1To10 = map (\x -> x * 2) [1..10]
